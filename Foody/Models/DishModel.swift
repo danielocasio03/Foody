@@ -94,6 +94,7 @@ struct DishModel: Decodable {
 	
 	
 	// MARK: - Coding Keys
+	
 	enum CodingKeys: String, CodingKey {
 		case idMeal
 		case strMeal

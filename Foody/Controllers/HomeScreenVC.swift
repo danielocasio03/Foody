@@ -11,7 +11,7 @@ class HomeScreenVC: UIViewController {
 	
 	//MARK: - Declarations
 	
-	let homeView = HomeView()
+	let homeView = HomeScreenView()
 	
 	//Declare and init an empty array of type DishCategory
 	var fetchedCategories: [DishCategory] = []
@@ -56,8 +56,6 @@ class HomeScreenVC: UIViewController {
 			homeView.dailyPickView.locationTag.tagSymbol.image = UIImage(systemName: "map.circle")
 
 		}
-
-		
 	}
 	
 	
@@ -147,6 +145,9 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		
 		print(indexPath)
+		let screen = CategoryScreenVC()
+		screen.modalPresentationStyle = .fullScreen
+		present(screen, animated: true)
 		
 	}
 	

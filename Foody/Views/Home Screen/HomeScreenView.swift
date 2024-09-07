@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HomeView: UIView {
+class HomeScreenView: UIView {
 	
 	//MARK: - Declarations
 	
