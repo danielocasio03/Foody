@@ -52,7 +52,7 @@ class DataFetchManager{
 				throw FetchError.responseError(statusCode: statusCode)
 			}
 			
-			//Decide data from DishCategoriesModel
+			//Decode data from DishCategoriesModel
 			let categoriesResponse = try JSONDecoder().decode(DishCategoriesModel.self, from: data)
 			//return the array of fetched categories
 			return categoriesResponse.categories
@@ -62,8 +62,8 @@ class DataFetchManager{
 		}
 	}
 	
-	
-	func fetchDish() async throws -> DishModel {
+	//This is the Async Method to fetch for a single random dish (used in the daily pick)
+	func fetchRandomDish() async throws -> DishModel {
 		
 		guard let url = URL(string: "https://www.themealdb.com/api/json/v1/1/random.php") else {
 			throw FetchError.invalidURL
@@ -79,13 +79,45 @@ class DataFetchManager{
 				throw FetchError.responseError(statusCode: statusCode)
 			}
 			
-			//Decide data from DishCategoriesModel
+			//Decode data from DishCategoriesModel
 			let dishResponse = try JSONDecoder().decode(DishResponse.self, from: data)
 			guard let dish = dishResponse.meals.first else {
 				throw FetchError.decodingError(description: "No dishes found in the response.")
 			}
-			//return the array of fetched categories
+			//return the fetched dish
 			return dish
+		} catch {
+			//error handling in case of decoding failure
+			throw FetchError.decodingError(description: error.localizedDescription)
+		}
+		
+		
+	}
+	
+	
+	//This is the method which fetches for dishes for a given category
+	func fetchDishesForCategory(for category: String) async throws -> [DishesForCategoryModel] {
+		
+		guard let url = URL(string: "https://themealdb.com/api/json/v1/1/filter.php?c=\(category)") else {
+			throw FetchError.invalidURL
+		}
+		
+		//Try to fetch the data
+		do {
+			let (data, response) = try await URLSession.shared.data(from: url)
+			
+			//Check for response status code for success or failure. Handling error in the event of failure
+			guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+				let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+				throw FetchError.responseError(statusCode: statusCode)
+			}
+			
+			//Decode data from DishesForCategoryModel
+			let dishResponse = try JSONDecoder().decode(DishesForCategoryResponse.self, from: data)
+			let dishesForCategory = dishResponse.meals
+			
+			//return the array of fetched dishes
+			return dishesForCategory
 		} catch {
 			//error handling in case of decoding failure
 			throw FetchError.decodingError(description: error.localizedDescription)

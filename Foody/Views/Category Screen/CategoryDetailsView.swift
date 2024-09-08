@@ -12,10 +12,19 @@ class CategoryDetailsView: UIStackView {
 	
 	//MARK: - Declarations
 	
+	// Back button to dismiss the view controller
+	lazy var backButton: UIButton = {
+		let button = UIButton(type: .system)
+		let backImage = UIImage(systemName: "chevron.left")
+		button.setImage(backImage, for: .normal)
+		button.tintColor = DesignManager.shared.offWhite
+		button.contentHorizontalAlignment = .leading
+		return button
+	}()
+	
 	//label holding the title for the category
 	lazy var categoryTitle: UILabel = {
 		let label = UILabel()
-		label.text = "Dessert"
 		label.font = DesignManager.shared.titleFont
 		label.textColor = DesignManager.shared.offWhite.withAlphaComponent(0.75)
 		return label
@@ -24,7 +33,6 @@ class CategoryDetailsView: UIStackView {
 	//Label for holding the details/description of the category
 	lazy var categoryDetail: UILabel = {
 		let label = UILabel()
-		label.text = "Vegetarianism is the practice of abstaining from the consumption of meat (red meat, poultry, seafood, and the flesh of any other animal), and may also include abstention from by-products of animal slaughter. Vegetarianism may be adopted for various reasons. Many people object to eating meat out of respect for sentient life. Such ethical motivations have been codified under various religious beliefs, as well as animal rights advocacy. Other motivations for vegetarianism are health-related, political, environmental, cultural, aesthetic, economic, or personal preference. There are variations of the diet as well: an ovo-lacto vegetarian diet includes both eggs and dairy products, an ovo-vegetarian diet includes eggs but not dairy products, and a lacto-vegetarian diet includes dairy products but not eggs. A vegan diet excludes all animal products, including eggs and dairy. Some vegans also avoid other animal products such as beeswax, leather or silk clothing, and goose-fat"
 		label.font = DesignManager.shared.tagFont?.withSize(14)
 		label.textColor = DesignManager.shared.offWhite.withAlphaComponent(0.75)
 		label.lineBreakMode = .byWordWrapping
@@ -73,7 +81,8 @@ class CategoryDetailsView: UIStackView {
 	
 	//Setup of the stackViews ArrangedSubviews
 	func setupSubviews() {
-		
+		// Add Back Button
+		self.addArrangedSubview(backButton)
 		//Category Title
 		self.addArrangedSubview(categoryTitle)
 		//Category Detail
@@ -91,7 +100,7 @@ class CategoryDetailsView: UIStackView {
 		let detailHeight = categoryDetail.sizeThatFits(CGSize(width: width - layoutMargins.left - layoutMargins.right, height: CGFloat.greatestFiniteMagnitude)).height
 		
 		// Return total height + padding and spacing + constant for extra room
-		return titleHeight + detailHeight + layoutMargins.top + layoutMargins.bottom + spacing + 50
+		return titleHeight + detailHeight + layoutMargins.top + layoutMargins.bottom + spacing + 100
 	}
 
 	

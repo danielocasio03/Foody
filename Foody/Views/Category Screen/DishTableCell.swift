@@ -57,6 +57,8 @@ class DishTableCell: UITableViewCell {
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = DesignManager.shared.largeDishNameFont
 		label.textColor = DesignManager.shared.offWhite
+		label.lineBreakMode = .byWordWrapping
+		label.numberOfLines = 3
 		return label
 	}()
 	
@@ -109,20 +111,12 @@ class DishTableCell: UITableViewCell {
 			
 			//Dish Name Label
 			dishNameLabel.leadingAnchor.constraint(equalTo: dishImage.trailingAnchor, constant: 20),
-			dishNameLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -20),
+			dishNameLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
 			dishNameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 15),
 			
 			
 		])
 	}
-	
-	
-	// A method to configure the cell with data
-	func configure(dishImage: UIImage?, dishTitle: String) {
-		self.dishImage.image = dishImage
-		dishNameLabel.text = dishTitle
-	}
-	
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")

@@ -12,8 +12,15 @@ class CategoryScreenVC: UIViewController {
 	
 	//MARK: - Declarations
 	
+	var selectedCategory: DishCategory?
+	
+	var dishesForCategory: [DishesForCategoryModel] = []
+	
 	lazy var categoryDetailsView: CategoryDetailsView = {
 		let view = CategoryDetailsView()
+		//Passing in the selected Category Data to the detail view
+		view.categoryTitle.text = selectedCategory?.strCategory
+		view.categoryDetail.text = selectedCategory?.strCategoryDescription
 		return view
 	}()
 	
@@ -55,11 +62,13 @@ class CategoryScreenVC: UIViewController {
 			dishesTable.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 			dishesTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			dishesTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-		
 		])
 	}
 	
+	//When called, dismisses the viewController
+	@objc func backTapped() {
+		navigationController?.popViewController(animated: true)
+	}
 	
 }
 
@@ -69,27 +78,39 @@ class CategoryScreenVC: UIViewController {
 
 extension CategoryScreenVC: UITableViewDelegate, UITableViewDataSource {
 	
+	//MARK: - Setup Functions
+	
+	//Function to setup the categoryDetailsView Header for the table
 	func setupTableViewHeader() {
-		
+		//Adding target to back button, calling backTapped
+		categoryDetailsView.backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
 		// Calculate height for the headerview
 		let calculatedHeight = categoryDetailsView.calculateHeight(for: view.frame.width)
 		// Set the frame for the header view based on the calculated height
 		categoryDetailsView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: calculatedHeight)
 		// Set header as the tableHeaderView
 		dishesTable.tableHeaderView = categoryDetailsView
-		
 	}
+	
+	
+	//MARK: - Table Delegate Functions
 	
 	//Number of rows
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 10
+		return dishesForCategory.count
 	}
 	
 	
 	//Cell for row
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = dishesTable.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! DishTableCell
-		cell.configure(dishImage: UIImage(named: "test"), dishTitle: "Test Food")
+		
+		//Getting the dish for the dequeued cell
+		let dishForCell = dishesForCategory[indexPath.row]
+		
+		//Loading the image into the cell and setting the dish's name to the cells textLabel
+		DataFetchManager.loadImage(from: dishForCell.strMealThumb, into: cell.dishImage)
+		cell.dishNameLabel.text = dishForCell.strMeal
 		
 		return cell
 		
@@ -110,7 +131,7 @@ extension CategoryScreenVC: UITableViewDelegate, UITableViewDataSource {
 		headerLabel.translatesAutoresizingMaskIntoConstraints = false
 		headerLabel.font = DesignManager.shared.sectionHeadingFont
 		headerLabel.textColor = DesignManager.shared.deepPurple
-		headerLabel.text = "Dishes" // Set your header text here
+		headerLabel.text = "Dishes" 
 		headerView.addSubview(headerLabel)
 		
 		// Set constraints for the label to align it properly inside the header view
@@ -121,9 +142,9 @@ extension CategoryScreenVC: UITableViewDelegate, UITableViewDataSource {
 		])
 		
 		return headerView
-		
 	}
 	
+	//Height for Section header
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 50
 	}

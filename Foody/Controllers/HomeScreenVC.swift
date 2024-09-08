@@ -84,7 +84,7 @@ class HomeScreenVC: UIViewController {
 		
 		Task {
 			do{
-				let fetchedDailyDish = try await DataFetchManager().fetchDish()
+				let fetchedDailyDish = try await DataFetchManager().fetchRandomDish()
 				//storing fetched data in local variable
 				loadDailyPick(dailyDish: fetchedDailyDish)
 				print("Random dish fetch returned and stored successfully")
@@ -144,10 +144,28 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource {
 	//didSelectItemAt
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		
-		print(indexPath)
-		let screen = CategoryScreenVC()
-		screen.modalPresentationStyle = .fullScreen
-		present(screen, animated: true)
+		//Getting the selected category based off index
+		guard let selectedCategory = (indexPath.section * 2 + indexPath.item) < fetchedCategories.count ? fetchedCategories[indexPath.section * 2 + indexPath.item] : nil else {
+			print("Category not available")
+			return
+		}
+		
+		//Fetching for the dishes from the selected category and pushing the categoryVC with the fetched data
+		Task {
+			do{
+				
+				let fetchedDishes = try await DataFetchManager().fetchDishesForCategory(for: selectedCategory.strCategory)
+				//Initializing category screen passing in the category and fetched dishes
+				let categoryScreen = CategoryScreenVC()
+				categoryScreen.selectedCategory = selectedCategory
+				categoryScreen.dishesForCategory = fetchedDishes
+				navigationController?.pushViewController(categoryScreen, animated: true)
+				
+				print("Dishes for Category fetch returned and stored successfully \(print(fetchedDishes))")
+			} catch {
+				print("Categories fetch returned with error: \(error)")
+			}
+		}
 		
 	}
 	
