@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		937318E62C8CBA31008420DE /* CategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937318E52C8CBA31008420DE /* CategoryScreenView.swift */; };
 		937318E82C8CD398008420DE /* DishTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937318E72C8CD398008420DE /* DishTableCell.swift */; };
 		93BDE5A82C89428900EF972B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BDE5A72C89428900EF972B /* AppDelegate.swift */; };
 		93BDE5AA2C89428900EF972B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BDE5A92C89428900EF972B /* SceneDelegate.swift */; };
@@ -30,7 +29,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		937318E52C8CBA31008420DE /* CategoryScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryScreenView.swift; sourceTree = "<group>"; };
 		937318E72C8CD398008420DE /* DishTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishTableCell.swift; sourceTree = "<group>"; };
 		93BDE5A42C89428900EF972B /* Foody.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foody.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93BDE5A72C89428900EF972B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,7 +108,6 @@
 		93BDE5BD2C8943D500EF972B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				93BDE5C52C89483900EF972B /* CustomScrollView.swift */,
 				93BDE5D82C8BF3E200EF972B /* Home Screen */,
 				93BDE5DD2C8BF50200EF972B /* Category Screen */,
 			);
@@ -138,6 +135,7 @@
 		93BDE5D82C8BF3E200EF972B /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
+				93BDE5C52C89483900EF972B /* CustomScrollView.swift */,
 				93BDE5C32C89442800EF972B /* HomeScreenView.swift */,
 				93BDE5C72C89498800EF972B /* DailyPickView.swift */,
 				93BDE5CB2C8B79A900EF972B /* CategoriesView.swift */,
@@ -150,7 +148,6 @@
 		93BDE5DD2C8BF50200EF972B /* Category Screen */ = {
 			isa = PBXGroup;
 			children = (
-				937318E52C8CBA31008420DE /* CategoryScreenView.swift */,
 				93BDE5DB2C8BF4FD00EF972B /* CategoryDetailsView.swift */,
 				937318E72C8CD398008420DE /* DishTableCell.swift */,
 			);
@@ -241,7 +238,6 @@
 				93BDE5C62C89483900EF972B /* CustomScrollView.swift in Sources */,
 				93BDE5C22C89441100EF972B /* DesignManager.swift in Sources */,
 				93BDE5D42C8BD28800EF972B /* DishModel.swift in Sources */,
-				937318E62C8CBA31008420DE /* CategoryScreenView.swift in Sources */,
 				93BDE5CA2C8A191E00EF972B /* TagLabel.swift in Sources */,
 				93BDE5D02C8BC1F000EF972B /* DishCategoriesModel.swift in Sources */,
 				93BDE5CE2C8B805200EF972B /* CategoryCell.swift in Sources */,

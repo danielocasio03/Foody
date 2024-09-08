@@ -28,7 +28,7 @@ class CategoryDetailsView: UIStackView {
 		label.font = DesignManager.shared.tagFont?.withSize(14)
 		label.textColor = DesignManager.shared.offWhite.withAlphaComponent(0.75)
 		label.lineBreakMode = .byWordWrapping
-		label.numberOfLines = 7
+		label.numberOfLines = 4
 		return label
 	}()
 	
@@ -54,10 +54,9 @@ class CategoryDetailsView: UIStackView {
 	
 	//MARK: -  View Setup Methods
 	
-	//General setup of the stack view (self)
+	//General setup of the stack view
 	func setupStackView() {
 		//General View setup
-		self.translatesAutoresizingMaskIntoConstraints = false
 		self.axis = .vertical
 		self.distribution = .equalSpacing
 		self.isLayoutMarginsRelativeArrangement = true
@@ -79,12 +78,22 @@ class CategoryDetailsView: UIStackView {
 		self.addArrangedSubview(categoryTitle)
 		//Category Detail
 		self.addArrangedSubview(categoryDetail)
-
-
 	}
 	
+	//MARK: - Helper Methods
 	
-	
+	// Method to calculate the required height for the view
+	func calculateHeight(for width: CGFloat) -> CGFloat {
+		// Calculate title label height
+		let titleHeight = categoryTitle.sizeThatFits(CGSize(width: width - layoutMargins.left - layoutMargins.right, height: CGFloat.greatestFiniteMagnitude)).height
+		
+		// Calculate detail label height
+		let detailHeight = categoryDetail.sizeThatFits(CGSize(width: width - layoutMargins.left - layoutMargins.right, height: CGFloat.greatestFiniteMagnitude)).height
+		
+		// Return total height + padding and spacing + constant for extra room
+		return titleHeight + detailHeight + layoutMargins.top + layoutMargins.bottom + spacing + 50
+	}
+
 	
 	required init(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")

@@ -61,7 +61,7 @@ class DesignManager {
 	let titleFont = UIFont(name: "Futura-Bold", size: 26)
 	
 	//The font used for the apps section headings
-	let sectionHeadingFont = UIFont(name: "Futura-Medium", size: 20)
+	let sectionHeadingFont = UIFont(name: "Futura-Medium", size: 21)
 	
 	//The font used across the app to display the dish names
 	let largeDishNameFont = UIFont(name: "Futura-Medium", size: 19)
