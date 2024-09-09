@@ -33,6 +33,7 @@ class CategoryScreenVC: UIViewController {
 		table.register(DishTableCell.self, forCellReuseIdentifier: "CustomCell")
 		table.contentInsetAdjustmentBehavior = .never
 		table.backgroundColor = DesignManager.shared.appBackgroundColor
+		table.separatorStyle = .none
 		return table
 	}()
 	
@@ -113,15 +114,37 @@ extension CategoryScreenVC: UITableViewDelegate, UITableViewDataSource {
 		cell.dishNameLabel.text = dishForCell.strMeal
 		
 		return cell
+	}
+	
+	
+	//Did select row
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let dishDetailsVC = DishDetailsScreen()
+		let selectedDish = dishesForCategory[indexPath.row]
+		
+		Task {
+			do{
+				let fetchedDish = try await DataFetchManager().fetchRandomDish(mealID: selectedDish.idMeal)
+				dishDetailsVC.fetchedDishData = fetchedDish
+				navigationController?.pushViewController(dishDetailsVC, animated: true)
+				print("Dish fetch returned and stored successfully")
+			} catch {
+				print("Dish fetch returned with error: \(error)")
+			}
+			
+		}
+		
 		
 	}
+	
 	
 	//Static setting of the cells height
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 140
 	}
 	
-	//View for header 
+	
+	//View for header
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let headerView = UIView()
 		headerView.backgroundColor = DesignManager.shared.appBackgroundColor
@@ -143,6 +166,7 @@ extension CategoryScreenVC: UITableViewDelegate, UITableViewDataSource {
 		
 		return headerView
 	}
+	
 	
 	//Height for Section header
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

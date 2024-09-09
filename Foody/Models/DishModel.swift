@@ -15,17 +15,11 @@ struct DishModel: Decodable {
 	
 	let idMeal: String
 	let strMeal: String
-	let strDrinkAlternate: String?
 	let strCategory: String
 	let strArea: String
 	let strInstructions: String
 	let strMealThumb: String
 	let strTags: String?
-	let strYoutube: String?
-	let strSource: String
-	let strImageSource: String?
-	let strCreativeCommonsConfirmed: String?
-	let dateModified: String?
 	
 	// Ingredient properties 1-20
 	let strIngredient1: String?
@@ -71,14 +65,15 @@ struct DishModel: Decodable {
 	let strMeasure19: String?
 	let strMeasure20: String?
 	
-	// Ingredients and measures as arrays of optional strings
+	// Ingredients and measures as arrays of strings. Filtering out nil or empty strings
 	var ingredients: [String] {
 		return [
 			strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
 			strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10,
 			strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15,
 			strIngredient16, strIngredient17, strIngredient18, strIngredient19, strIngredient20
-		].compactMap { $0 }
+		]
+			.compactMap { $0?.isEmpty == false ? $0 : nil }
 	}
 	
 	var measures: [String] {
@@ -87,37 +82,8 @@ struct DishModel: Decodable {
 			strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10,
 			strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15,
 			strMeasure16, strMeasure17, strMeasure18, strMeasure19, strMeasure20
-		].compactMap { $0 }
+		]
+			.compactMap { $0?.isEmpty == false ? $0 : nil }
 	}
 	
-	
-	
-	
-	// MARK: - Coding Keys
-	
-	enum CodingKeys: String, CodingKey {
-		case idMeal
-		case strMeal
-		case strDrinkAlternate
-		case strCategory
-		case strArea
-		case strInstructions
-		case strMealThumb
-		case strTags
-		case strYoutube
-		case strSource
-		case strImageSource
-		case strCreativeCommonsConfirmed
-		case dateModified
-		
-		case strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5
-		case strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10
-		case strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15
-		case strIngredient16, strIngredient17, strIngredient18, strIngredient19, strIngredient20
-		
-		case strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5
-		case strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10
-		case strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15
-		case strMeasure16, strMeasure17, strMeasure18, strMeasure19, strMeasure20
-	}
 }

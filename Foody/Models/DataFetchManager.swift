@@ -63,9 +63,19 @@ class DataFetchManager{
 	}
 	
 	//This is the Async Method to fetch for a single random dish (used in the daily pick)
-	func fetchRandomDish() async throws -> DishModel {
+	func fetchRandomDish(mealID: String? = nil) async throws -> DishModel {
 		
-		guard let url = URL(string: "https://www.themealdb.com/api/json/v1/1/random.php") else {
+		// Construct URL based on whether mealID is provided; if one is not, it will use the url to fetch a random dish
+		//We do this to allow this function to be used in both fetching for a specific meal or fetching for a random dish
+		let urlString: String
+		if let mealID = mealID {
+			urlString = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(mealID)"
+		} else {
+			urlString = "https://www.themealdb.com/api/json/v1/1/random.php"
+		}
+		
+		// Create URL from the constructed URL string
+		guard let url = URL(string: urlString) else {
 			throw FetchError.invalidURL
 		}
 		

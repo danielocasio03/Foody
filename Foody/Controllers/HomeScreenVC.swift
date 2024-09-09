@@ -42,7 +42,7 @@ class HomeScreenVC: UIViewController {
 		])
 	}
 	
-	//
+	//Function to load the dailyPick with data
 	func loadDailyPick(dailyDish: DishModel) {
 		
 		DispatchQueue.main.async { [ weak self] in
@@ -163,7 +163,7 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource {
 				
 				print("Dishes for Category fetch returned and stored successfully \(print(fetchedDishes))")
 			} catch {
-				print("Categories fetch returned with error: \(error)")
+				print("Dishes For category fetch returned with error: \(error)")
 			}
 		}
 		

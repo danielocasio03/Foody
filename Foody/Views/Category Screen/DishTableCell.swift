@@ -1,5 +1,5 @@
 //
-//  dishTableCell.swift
+//  DishTableCell.swift
 //  Foody
 //
 //  Created by Daniel Efrain Ocasio on 9/7/24.
@@ -42,7 +42,7 @@ class DishTableCell: UITableViewCell {
 	}()
 	
 	// Image View for dish
-	let dishImage: UIImageView = {
+	lazy var dishImage: UIImageView = {
 		let image = UIImageView()
 		image.translatesAutoresizingMaskIntoConstraints = false
 		image.clipsToBounds = true
@@ -52,7 +52,7 @@ class DishTableCell: UITableViewCell {
 	}()
 	
 	// Title label for dish name
-	let dishNameLabel: UILabel = {
+	lazy var dishNameLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = DesignManager.shared.largeDishNameFont
