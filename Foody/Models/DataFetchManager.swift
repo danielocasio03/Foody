@@ -62,7 +62,7 @@ class DataFetchManager{
 		}
 	}
 	
-	//This is the Async Method to fetch for a single random dish (used in the daily pick)
+	//This is the Async Method to fetch for a single dish for a given mealID or a random dish if MealID not provided (used in the daily pick)
 	func fetchRandomDish(mealID: String? = nil) async throws -> DishModel {
 		
 		// Construct URL based on whether mealID is provided; if one is not, it will use the url to fetch a random dish

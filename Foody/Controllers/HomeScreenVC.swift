@@ -16,7 +16,9 @@ class HomeScreenVC: UIViewController {
 	//Declare and init an empty array of type DishCategory
 	var fetchedCategories: [DishCategory] = []
 		
+	
 	//MARK: - Lifecycle functions
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		fetchCategories()
@@ -45,7 +47,7 @@ class HomeScreenVC: UIViewController {
 	//Function to load the dailyPick with data
 	func loadDailyPick(dailyDish: DishModel) {
 		
-		DispatchQueue.main.async { [ weak self] in
+		DispatchQueue.main.async { [weak self] in
 			guard let self = self else {return}
 			DataFetchManager.loadImage(from: dailyDish.strMealThumb, into: homeView.dailyPickView.dishImage)
 			homeView.dailyPickView.dishNameLabel.text = dailyDish.strMeal

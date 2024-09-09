@@ -15,6 +15,7 @@ class DishDetailsView: UIStackView {
 	// Back button to dismiss the view controller
 	lazy var backButton: UIButton = {
 		let button = UIButton(type: .system)
+		button.translatesAutoresizingMaskIntoConstraints = false
 		let backImage = UIImage(systemName: "chevron.left")
 		button.setImage(backImage, for: .normal)
 		button.tintColor = DesignManager.shared.offWhite
@@ -27,7 +28,6 @@ class DishDetailsView: UIStackView {
 		let label = UILabel()
 		label.font = DesignManager.shared.titleFont
 		label.textColor = DesignManager.shared.offWhite.withAlphaComponent(0.75)
-		label.text = "Apple & BlackBerry Crumble" //Remove
 		label.lineBreakMode = .byWordWrapping
 		label.numberOfLines = 4
 		return label
@@ -37,7 +37,6 @@ class DishDetailsView: UIStackView {
 	lazy var dishImage: UIImageView = {
 		let image = UIImageView()
 		image.contentMode = .scaleAspectFit
-		image.image = UIImage(named: "test") //Remove
 		image.heightAnchor.constraint(equalToConstant: 150).isActive = true
 		image.widthAnchor.constraint(equalToConstant: 150).isActive = true
 		image.layer.cornerRadius = 10

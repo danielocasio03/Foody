@@ -39,10 +39,6 @@ class IngredientsTableCell: UITableViewCell {
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: UITableViewCell.CellStyle.default, reuseIdentifier: reuseIdentifier)
-		
-		//changes to the actual cells appearance
-		backgroundColor = DesignManager.shared.appBackgroundColor
-		
 		setupView()
 	}
 	
@@ -52,8 +48,9 @@ class IngredientsTableCell: UITableViewCell {
 	
 	//General View setup
 	func setupView() {
+		//changes to the actual cells appearance
+		backgroundColor = DesignManager.shared.appBackgroundColor
 		self.selectionStyle = .none
-		
 		//bulletPoint
 		self.contentView.addSubview(bulletPoint)
 		// ingredient label

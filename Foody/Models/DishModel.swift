@@ -7,6 +7,7 @@
 
 import Foundation
 
+//This is the model for the JSON that holds all the details for a given dish
 struct DishResponse: Decodable {
 	let meals: [DishModel]
 }

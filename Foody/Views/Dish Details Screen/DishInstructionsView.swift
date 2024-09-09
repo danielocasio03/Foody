@@ -32,7 +32,7 @@ class DishInstructionsView: UIStackView {
 	}()
 	
 	
-	//MARK: - Init and Lifecycle
+	//MARK: - Init
 	
 	//Override Init
 	override init(frame: CGRect) {

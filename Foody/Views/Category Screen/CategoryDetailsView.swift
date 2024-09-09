@@ -15,6 +15,7 @@ class CategoryDetailsView: UIStackView {
 	// Back button to dismiss the view controller
 	lazy var backButton: UIButton = {
 		let button = UIButton(type: .system)
+		button.translatesAutoresizingMaskIntoConstraints = false
 		let backImage = UIImage(systemName: "chevron.left")
 		button.setImage(backImage, for: .normal)
 		button.tintColor = DesignManager.shared.offWhite
@@ -25,6 +26,7 @@ class CategoryDetailsView: UIStackView {
 	//label holding the title for the category
 	lazy var categoryTitle: UILabel = {
 		let label = UILabel()
+		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = DesignManager.shared.titleFont
 		label.textColor = DesignManager.shared.offWhite.withAlphaComponent(0.75)
 		return label
@@ -33,6 +35,7 @@ class CategoryDetailsView: UIStackView {
 	//Label for holding the details/description of the category
 	lazy var categoryDetail: UILabel = {
 		let label = UILabel()
+		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = DesignManager.shared.tagFont?.withSize(14)
 		label.textColor = DesignManager.shared.offWhite.withAlphaComponent(0.75)
 		label.lineBreakMode = .byWordWrapping
@@ -65,6 +68,7 @@ class CategoryDetailsView: UIStackView {
 	//General setup of the stack view
 	func setupStackView() {
 		//General View setup
+		self.translatesAutoresizingMaskIntoConstraints = false
 		self.axis = .vertical
 		self.distribution = .equalSpacing
 		self.isLayoutMarginsRelativeArrangement = true

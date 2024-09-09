@@ -61,7 +61,7 @@ class DailyPickView: UIView {
 		return image
 	}()
 	
-	//This is the Label that displays the name of the dish's name
+	//This is the Label that displays the name of the dish
 	lazy var dishNameLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false

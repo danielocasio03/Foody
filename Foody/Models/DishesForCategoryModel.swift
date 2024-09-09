@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+//This is the model for the data that returns all dishes for a given category
 struct DishesForCategoryResponse: Decodable {
 	
 	let meals: [DishesForCategoryModel]

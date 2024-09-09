@@ -119,9 +119,11 @@ extension CategoryScreenVC: UITableViewDelegate, UITableViewDataSource {
 	
 	//Did select row
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		//Initializing DishDetailsScreen and storing the selected dish
 		let dishDetailsVC = DishDetailsScreen()
 		let selectedDish = dishesForCategory[indexPath.row]
 		
+		//Fetching details for the selected dish, then passing in the details to dishDetailsVC before pushing it
 		Task {
 			do{
 				let fetchedDish = try await DataFetchManager().fetchRandomDish(mealID: selectedDish.idMeal)

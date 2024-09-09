@@ -19,7 +19,6 @@ class DishTableCell: UITableViewCell {
 		container.backgroundColor = DesignManager.shared.componentPurple
 		container.layer.cornerRadius = 10
 		container.clipsToBounds = true
-
 		
 		return container
 	}()
@@ -96,25 +95,20 @@ class DishTableCell: UITableViewCell {
 			container.centerYAnchor.constraint(equalTo: centerYAnchor),
 			container.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.80),
 			container.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.85),
-			
 			//Container Shadow Layer
 			containerShadowLayer.topAnchor.constraint(equalTo: container.topAnchor),
 			containerShadowLayer.bottomAnchor.constraint(equalTo: container.bottomAnchor),
 			containerShadowLayer.leadingAnchor.constraint(equalTo: container.leadingAnchor),
 			containerShadowLayer.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-			
 			//Dish Image
 			dishImage.topAnchor.constraint(equalTo: container.topAnchor),
 			dishImage.bottomAnchor.constraint(equalTo: container.bottomAnchor),
 			dishImage.leadingAnchor.constraint(equalTo: container.leadingAnchor),
 			dishImage.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.40),
-			
 			//Dish Name Label
 			dishNameLabel.leadingAnchor.constraint(equalTo: dishImage.trailingAnchor, constant: 20),
 			dishNameLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
 			dishNameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 15),
-			
-			
 		])
 	}
 	

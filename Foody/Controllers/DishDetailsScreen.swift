@@ -30,6 +30,7 @@ class DishDetailsScreen: UIViewController {
 		}
 	}()
 	
+	//Footer view for the table
 	lazy var dishInstructionsView: DishInstructionsView = {
 		let view = DishInstructionsView()
 		view.instructions.text = fetchedDishData?.strInstructions
@@ -93,12 +94,11 @@ extension DishDetailsScreen: UITableViewDelegate, UITableViewDataSource {
 	
 	//MARK: - Setup Functions
 	
-	//Function to setup the dishDetailsView Header
+	//Function to setup the dishDetailsView Header and dishInstructionsView Footer
 	func setupTableViewHeader() {
+		//HEADER
 		// Adding target to back button, calling backTapped
 		dishDetailsView.backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
-		
-		//HEADER
 		//Configuring Header size
 		dishDetailsView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 375)
 		//Adding the header to the table

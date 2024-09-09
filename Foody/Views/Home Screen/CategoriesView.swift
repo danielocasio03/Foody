@@ -64,7 +64,7 @@ class CategoriesView: UIView {
 		
 	}
 	
-	//Bible collection view layout setup
+	//Categories collection view layout setup
 	static func collectionLayoutSetup() -> UICollectionViewLayout {
 		
 		//Item
