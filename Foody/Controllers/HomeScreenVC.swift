@@ -122,22 +122,19 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource {
 	
 	//cellForItemAt - responsible for populating each collection view cell with data
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		//Dequeuing the cell for the categorycollectionview using the CategoryCell
+		// Dequeue reusable cell for the collection view
 		let cell = homeView.categoriesView.categoriesCollectionView.dequeueReusableCell(withReuseIdentifier: "customCell", for: indexPath) as! CategoryCell
 		
-		// Since each section has 2 items, multiplying the section by 2 and adding the item gives the correct index in a 1D array format (to match how our fetchedCategories array is structured)
-		let categoryIndex = indexPath.section * 2 + indexPath.item
-		
-		// Below checks if the index is within bounds of the fetchedCategories array before proceeding to avoid any crashes
-		if categoryIndex < fetchedCategories.count {
-			let category = fetchedCategories[categoryIndex]
-			// Assign Category data to cell
+		// Use the helper method to get the corresponding DishCategory for the current indexPath
+		if let category = getCategory(for: indexPath) {
+			// Assign the category name to the cell's label
 			cell.categoryTitle.text = category.strCategory
-			//Calls the loadImage Utility function to load the image directly into the cells category image
+			// Load the category image asynchronously into the cell's image view
 			DataFetchManager.loadImage(from: category.strCategoryThumb, into: cell.categoryImage)
 		} else {
-			// Handle cases where categories do not yet exist
+			// If no category is found (data not yet loaded), show a loading state
 			cell.categoryTitle.text = "Loading..."
+			cell.categoryImage.image = nil  // Clear the image until data is available
 		}
 		
 		return cell
@@ -146,31 +143,43 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource {
 	//didSelectItemAt
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		
-		//Getting the selected category based off index
-		guard let selectedCategory = (indexPath.section * 2 + indexPath.item) < fetchedCategories.count ? fetchedCategories[indexPath.section * 2 + indexPath.item] : nil else {
-			print("Category not available")
+		// Use the helper method to get the selected category based on the current indexPath
+		guard let selectedCategory = getCategory(for: indexPath) else {
+			print("Category not available")  // Handle the case where no category is available
 			return
 		}
 		
-		//Fetching for the dishes from the selected category and pushing the categoryVC with the fetched data
+		// Perform asynchronous task to fetch dishes for the selected category
 		Task {
-			do{
-				
+			do {
+				// Fetch dishes for the selected category
 				let fetchedDishes = try await DataFetchManager().fetchDishesForCategory(for: selectedCategory.strCategory)
-				//Initializing category screen passing in the category and fetched dishes
+				// Initialize the CategoryScreenVC and pass the selected category and its dishes
 				let categoryScreen = CategoryScreenVC()
 				categoryScreen.selectedCategory = selectedCategory
 				categoryScreen.dishesForCategory = fetchedDishes
+				// Push  the category screen
 				navigationController?.pushViewController(categoryScreen, animated: true)
 				
 				print("Dishes for Category fetch returned and stored successfully \(print(fetchedDishes))")
 			} catch {
-				print("Dishes For category fetch returned with error: \(error)")
+				print("Dishes For category fetch returned with error: \(error)")  // Handle fetch errors
 			}
 		}
 		
 	}
 	
 	
+}
+
+//MARK: - Extension: get category method
+extension HomeScreenVC {
+	
+	//Method designed to get a caegory for a given indexPath.
+	//Used to simplify the logic in getting the needed category for a given collectionviewItem, or selected item
+	func getCategory(for indexPath: IndexPath) -> DishCategory? {
+		let categoryIndex = indexPath.section * 2 + indexPath.item
+		return categoryIndex < fetchedCategories.count ? fetchedCategories[categoryIndex] : nil
+	}
 }
 
